@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int exflag = 0;
 void main()
 {
     char c;
@@ -13,18 +12,18 @@ void main()
     }
     if (!fork())
     {
+        close(pfd[0]);
         printf("press a key");
         scanf("%c", &c);
-        exflag = 1;
-        write(pfd[1], &exflag, 1);
+        write(pfd[1], &c, 1);
         exit(0);
     }
     else
     {
-        read(pfd[0], &exflag, 1);
-        while (!exflag);
+        close(pfd[1]);
+        read(pfd[0], &c, 1);
 
-        printf("I received the character");
+        printf("I received the character %c",c);
         exit(0);
     }
 }
