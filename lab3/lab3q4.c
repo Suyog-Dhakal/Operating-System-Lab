@@ -13,9 +13,10 @@
 //         printf("in the parent p[0] is % d p[1] is % d\n", p[0], p[1]);
 // }
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<sys/wait.h>
 
 void main()
 {
@@ -29,6 +30,7 @@ void main()
         printf("press any key to exit……\n");
         scanf("%c",&data);
         write(pfd[1], &data, 1);
+        wait(NULL);
         printf("parent exiting\n");
     }
     else
